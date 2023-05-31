@@ -5,12 +5,11 @@ import { RoadLogistics } from "../src/PatternDesign/Factory/01-example/RoadLogis
 import { OrderFacade } from "../src/PatternDesign/Facade/OrderFacade";
 import { Singleton } from "../src/PatternDesign/Singleton/Singleton";
 import { AdapterTemperatura, Temperatura } from "../src/PatternDesign/Adapter/Example";
-import { DirectorHotDog, ConcreteHotDog } from "../src/PatternDesign/Builder/builderRestrictivo/HotDog";
+import { DirectorHotDog, ConcreteHotDog, HotDog } from "../src/PatternDesign/Builder/builderRestrictivo/HotDog";
 import { ConcreteStrategyAuto, ConcreteStrategyBicicleta, Rutas } from "../src/PatternDesign/Strategy/RutasExample";
 import { Radio, TV } from "../src/PatternDesign/Bridge/01-example/BridgeExample";
 import { Influencer, Persona1, Persona2 } from "../src/PatternDesign/Observer/01-example/Subscription";
 import { Ship } from "../src/PatternDesign/Factory/01-example/Ship";
-import { HotDog } from "../src/PatternDesign/Builder/builderSimple/HotDog";
 
 describe("Pruebas para las funciones en app.ts", () => {
     it("Prueba para factoryPattern", () => {
@@ -45,9 +44,13 @@ describe("Pruebas para las funciones en app.ts", () => {
 
     director.setBuilder(builder);
     director.buildMinimalViableProduct();
-    
 
-    expect(builder.getProduct().getProductComplete()).toBeInstanceOf(HotDog);
+    const completos = builder.getProduct();
+
+    const hotDog2 = new ConcreteHotDog();
+    hotDog2.addBread();
+
+    expect(completos).toEqual(hotDog2.getProduct());
   });
 
   it("Prueba para strategyPattern", () => {
